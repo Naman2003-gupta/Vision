@@ -1,3 +1,5 @@
-from speech.speaker import speak
-
-speak("Hello Divya. If you hear this, Jarvis voice is fixed.")
+# test_voice.py
+import pyttsx3
+engine = pyttsx3.init("sapi5")
+engine.say("Jarvis voice test successful")
+engine.runAndWait()

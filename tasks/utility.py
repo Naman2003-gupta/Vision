@@ -1,29 +1,24 @@
-import datetime
-from speech.speaker import speak
+from datetime import datetime
+from config import JARVIS_NAME
 
 def handle_utility(command):
+    command = command.lower()
+
     if "time" in command:
-        speak("Sure. Let me check the time.")
-        time = datetime.datetime.now().strftime("%H:%M")
-        speak(f"The current time is {time}")
-        return True
+        time_now = datetime.now().strftime("%H:%M")
+        return f"The current time is {time_now}"
 
-    elif "date" in command:
-        speak("Okay. Fetching today's date.")
-        date = datetime.datetime.now().strftime("%d %B %Y")
-        speak(f"Today's date is {date}")
-        return True
+    if "date" in command:
+        date_today = datetime.now().strftime("%d %B %Y")
+        return f"Today's date is {date_today}"
 
-    elif "hello" in command or "hi" in command:
-        speak("Hello! I am ready and listening.")
-        return True
+    if "hello" in command or "hi" in command:
+        return "Hello! I am ready and listening."
 
-    elif "how are you" in command:
-        speak("I am functioning perfectly. Thank you for asking.")
-        return True
+    if "how are you" in command:
+        return "I am functioning perfectly. Thank you for asking."
 
-    elif "exit" in command or "stop" in command:
-        speak("Shutting down. Have a nice day.")
-        exit()
+    if "your name" in command:
+        return f"My name is {JARVIS_NAME}"
 
-    return False
+    return None
