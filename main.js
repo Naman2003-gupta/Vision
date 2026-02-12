@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow } = require('electron');
 const path = require('path');
 
 let mainWindow;
@@ -16,30 +16,27 @@ function createWindow() {
       preload: path.join(__dirname, 'preload.js'),
     },
     frame: true,
-    show: false, 
+    show: false,
   });
 
-  
-  const isDev = process.env.NODE_ENV === 'development';
-  
+  const devUrl = process.env.VITE_DEV_SERVER_URL;
+  const isDev = process.env.NODE_ENV === 'development' || Boolean(devUrl);
+
   if (isDev) {
-    mainWindow.loadURL('http://localhost:5173');
+    mainWindow.loadURL(devUrl || 'http://localhost:5173');
     mainWindow.webContents.openDevTools();
   } else {
-    mainWindow.loadFile(path.join(__dirname, '../renderer/dist/index.html'));
+    mainWindow.loadFile(path.join(__dirname, 'dist', 'index.html'));
   }
 
-  
   mainWindow.once('ready-to-show', () => {
     mainWindow.show();
   });
 
-  
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
 }
-
 
 app.whenReady().then(() => {
   createWindow();
@@ -56,6 +53,5 @@ app.on('window-all-closed', () => {
     app.quit();
   }
 });
-
 
 require('./ipcHandlers');
