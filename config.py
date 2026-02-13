@@ -1,4 +1,4 @@
 # config.py
 
-JARVIS_NAME = "Jarvis"
+JARVIS_NAME = "Vision"
 SPEECH_RATE = 170

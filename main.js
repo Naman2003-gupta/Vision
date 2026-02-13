@@ -1,7 +1,19 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, session } = require('electron');
 const path = require('path');
 
 let mainWindow;
+const MEDIA_PERMISSIONS = new Set(['media', 'microphone', 'camera']);
+
+function configureMediaPermissions() {
+  const defaultSession = session.defaultSession;
+  if (!defaultSession) {
+    return;
+  }
+
+  defaultSession.setPermissionRequestHandler((_, permission, callback) => {
+    callback(MEDIA_PERMISSIONS.has(permission));
+  });
+}
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -39,6 +51,7 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  configureMediaPermissions();
   createWindow();
 
   app.on('activate', () => {
