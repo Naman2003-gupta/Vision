@@ -1,4 +1,4 @@
-# Vision - Jarvis Desktop (Electron + Python Core)
+# Vision -  Desktop AI Appliocation Dedicated with (Electron + Python Core)
 
 This repository now includes a futuristic Electron desktop UI with listening/speaking animations, integrated with the existing Jarvis IPC + Python project.
 
@@ -42,3 +42,5 @@ npm run start
 - `open file C:\\Users\\<your-user>\\Desktop\\sample.txt`
 - `ask what is machine learning`
 
+
+Copyright @2026 by Naman Mahajan
